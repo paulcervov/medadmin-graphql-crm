@@ -1,6 +1,6 @@
 import React from 'react';
 
-function EditButton({url}) {
+function Edit({url}) {
     return (
         <a href={url} className="btn btn-primary"
            title="Редактировать">
@@ -16,4 +16,4 @@ function EditButton({url}) {
     );
 }
 
-export default EditButton;
+export default Edit;

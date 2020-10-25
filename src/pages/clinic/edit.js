@@ -1,11 +1,11 @@
 import React from 'react';
 
-function View() {
+function Index() {
     return (
         <div className="container">
-            <h2>Панель управления</h2>
+            <h2>Клиника</h2>
         </div>
     )
 }
 
-export default View;
+export default Index;

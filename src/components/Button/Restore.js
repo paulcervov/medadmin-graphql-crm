@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RestoreButton({url}) {
+function Restore({url}) {
     return (
         <button formAction={url} className="btn btn-light" form="restoreItem"
                 title="Восстановить" type="submit">
@@ -18,4 +18,4 @@ function RestoreButton({url}) {
     );
 }
 
-export default RestoreButton;
+export default Restore;

@@ -1,8 +1,8 @@
 import React from 'react';
-import EditButton from '../../UI/EditButton';
-import DeleteButton from '../../UI/DeleteButton';
-import RestoreButton from '../../UI/RestoreButton';
-import EmployerType from '../../../enums/EmployerType'
+import ButtonEdit from '../../../Button/Edit';
+import ButtonDelete from '../../../Button/Delete';
+import ButtonRestore from '../../../Button/Restore';
+import EmployerType from '../../../../enums/Employer/Type'
 
 function Item({employer}) {
     return (
@@ -21,11 +21,11 @@ function Item({employer}) {
 
                 <div className="col-sm-auto ml-sm-auto">
 
-                    {employer.deleted_at && <RestoreButton url={`#`}/>}
+                    {employer.deleted_at && <ButtonRestore url={`#`}/>}
 
-                    {!employer.deleted_at && <EditButton url={`#`}/>}
+                    {!employer.deleted_at && <ButtonEdit url={`#`}/>}
 
-                    {!employer.deleted_at && <DeleteButton url={`#`}/>}
+                    {!employer.deleted_at && <ButtonDelete url={`#`}/>}
                 </div>
             </div>
         </div>

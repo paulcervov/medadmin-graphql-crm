@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DeleteButton({url}) {
+function Delete({url}) {
     return (
         <button type="submit" className="btn btn-danger ml-sm-2" form="deleteItem"
                 formAction={url} title="Удалить">
@@ -16,4 +16,4 @@ function DeleteButton({url}) {
     );
 }
 
-export default DeleteButton;
+export default Delete;
