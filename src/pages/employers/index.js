@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 import EmployerList from "../../components/Employer/List/List";
 import LayoutDashboard from "../../components/Layout/Dashboard";
 
@@ -7,7 +7,6 @@ import {
     gql,
     useQuery
 } from "@apollo/client";
-
 
 const GET_EMPLOYERS = gql`
     query getEmployers($page: Int = 1, $trashed: Trashed = WITH) {
@@ -68,7 +67,7 @@ function Index() {
                         </div>
 
                         <div className="col-sm-auto ml-sm-auto">
-                            <a className="btn btn-primary" href="#">Новый сотрудник</a>
+                            <Link className="btn btn-primary" to="/employers/create">Новый сотрудник</Link>
                         </div>
                     </div>
 
