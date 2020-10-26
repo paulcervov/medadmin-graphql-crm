@@ -1,7 +1,7 @@
 import React from 'react';
 
 import EmployerList from "../../components/Employer/List/List";
-import LayoutDefault from "../../components/Layout/Default";
+import LayoutDashboard from "../../components/Layout/Dashboard";
 
 import {
     gql,
@@ -38,7 +38,7 @@ function Index() {
     const {data, loading, error, fetchMore} = useQuery(GET_EMPLOYERS);
 
     return (
-        <LayoutDefault>
+        <LayoutDashboard>
             <div className="container">
                 <div className="border pl-sm-4 pr-sm-4 pb-sm-3 pt-sm-3">
 
@@ -63,7 +63,7 @@ function Index() {
                 </div>
 
             </div>
-        </LayoutDefault>
+        </LayoutDashboard>
     )
 }
 

@@ -1,10 +1,13 @@
 import React from 'react';
+import LayoutDashboard from "../../components/Layout/Dashboard";
 
 function Index() {
     return (
-        <div className="container">
-            <h2>Клиника</h2>
-        </div>
+        <LayoutDashboard>
+            <div className="container">
+                <h2>Редактирование клиники</h2>
+            </div>
+        </LayoutDashboard>
     )
 }
 
