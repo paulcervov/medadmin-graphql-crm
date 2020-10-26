@@ -4,6 +4,7 @@ import Index from "./pages/index";
 import ClinicIndex from "./pages/clinic/index";
 import EmployersIndex from "./pages/employers/index";
 import EmployersCreate from "./pages/employers/create";
+import EmployersShow from "./pages/employers/show";
 import Login from "./pages/login";
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
                     path="/employers"
                     render={({ match: { path } }) => (
                         <>
-                            <Route path={`${path}/`} component={EmployersIndex} exact />
+                            <Route exact path={`${path}/`} component={EmployersIndex} />
                             <Route path={`${path}/create`} component={EmployersCreate} />
+                            <Route path={`${path}/:id(\\d+)`} component={EmployersShow} />
                         </>
                     )}
                 />

@@ -3,6 +3,7 @@ import ButtonEdit from '../../../common/Button/Edit';
 import ButtonDelete from '../../../common/Button/Delete';
 import ButtonRestore from '../../../common/Button/Restore';
 import EmployerType from '../../../../enums/Employer/Type'
+import {Link} from "react-router-dom";
 
 function Item({employer}) {
     return (
@@ -10,7 +11,9 @@ function Item({employer}) {
             <div className="row p-2">
 
                 <div className="col-sm-3">
-                    <a href="http://127.0.0.1:8000/employers/4" className="font-weight-bold">{employer.last_name} {employer.first_name} {employer.middle_name}</a>
+                    <Link to={`/employers/${employer.id}`}>
+                        {employer.last_name} {employer.first_name} {employer.middle_name}
+                    </Link>
                     <div>{employer.phone}</div>
                 </div>
 
