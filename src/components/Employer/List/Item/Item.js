@@ -1,7 +1,7 @@
 import React from 'react';
-import ButtonEdit from '../../../Button/Edit';
-import ButtonDelete from '../../../Button/Delete';
-import ButtonRestore from '../../../Button/Restore';
+import ButtonEdit from '../../../common/Button/Edit';
+import ButtonDelete from '../../../common/Button/Delete';
+import ButtonRestore from '../../../common/Button/Restore';
 import EmployerType from '../../../../enums/Employer/Type'
 
 function Item({employer}) {
