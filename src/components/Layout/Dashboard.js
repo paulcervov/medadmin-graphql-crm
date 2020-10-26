@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import LayoutApp from '../Layout/App';
 
 function Dashboard({children}) {
@@ -19,17 +19,10 @@ function Dashboard({children}) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
                         {/* Left Side Of Navbar */}
-                        <ul className="navbar-nav mr-auto">
-
-                            <li className="nav-item ">
-                                <Link className="nav-link" to="/clinic">Клиника</Link>
-                            </li>
-
-                            <li className="nav-item ">
-                                <Link className="nav-link" to="/employers">Сотрудники</Link>
-                            </li>
-
-                        </ul>
+                        <div className="navbar-nav mr-auto">
+                            <NavLink className="nav-item nav-link" to="/clinic">Клиника</NavLink>
+                            <NavLink className="nav-item nav-link" to="/employers">Сотрудники</NavLink>
+                        </div>
 
                     </div>
                 </div>
