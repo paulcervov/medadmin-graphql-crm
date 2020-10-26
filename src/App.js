@@ -5,6 +5,7 @@ import ClinicIndex from "./pages/clinic/index";
 import EmployersIndex from "./pages/employers/index";
 import EmployersCreate from "./pages/employers/create";
 import EmployersShow from "./pages/employers/show";
+import EmployersEdit from "./pages/employers/edit";
 import Login from "./pages/login";
 
 function App() {
@@ -20,9 +21,10 @@ function App() {
                     path="/employers"
                     render={({ match: { path } }) => (
                         <>
-                            <Route exact path={`${path}/`} component={EmployersIndex} />
-                            <Route path={`${path}/create`} component={EmployersCreate} />
-                            <Route path={`${path}/:id(\\d+)`} component={EmployersShow} />
+                            <Route exact path={`${path}`} component={EmployersIndex} />
+                            <Route exact path={`${path}/create`} component={EmployersCreate} />
+                            <Route exact path={`${path}/:id(\\d+)`} component={EmployersShow} />
+                            <Route exact path={`${path}/:id(\\d+)/edit`} component={EmployersEdit} />
                         </>
                     )}
                 />

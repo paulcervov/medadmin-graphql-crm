@@ -3,9 +3,12 @@ import ButtonEdit from '../../../common/Button/Edit';
 import ButtonDelete from '../../../common/Button/Delete';
 import ButtonRestore from '../../../common/Button/Restore';
 import EmployerType from '../../../../enums/Employer/Type'
-import {Link} from "react-router-dom";
+import {Link, useRouteMatch} from "react-router-dom";
 
 function Item({employer}) {
+
+    const {path} = useRouteMatch();
+
     return (
         <div className="bg-light">
             <div className="row p-2">
@@ -26,7 +29,7 @@ function Item({employer}) {
 
                     {employer.deleted_at && <ButtonRestore url={`#`}/>}
 
-                    {!employer.deleted_at && <ButtonEdit url={`#`}/>}
+                    {!employer.deleted_at && <ButtonEdit to={`${path}/${employer.id}/edit`}/>}
 
                     {!employer.deleted_at && <ButtonDelete url={`#`}/>}
                 </div>
