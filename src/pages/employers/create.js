@@ -6,7 +6,7 @@ function Create() {
     return (
         <LayoutDashboard>
             <div className="container">
-                <h2>Новый пользователь</h2>
+                <h2>Новый сотрудник</h2>
             </div>
         </LayoutDashboard>
     )

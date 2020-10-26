@@ -73,7 +73,7 @@ function Index() {
 
                     {loading && <div className="alert alert-secondary">Загрузка...</div>}
                     {error && <div className="alert alert-danger">Ошибка</div>}
-                    {!data && <div className="alert alert-warning">Не найдено</div>}
+                    {!loading && !data && <div className="alert alert-warning">Не найдено</div>}
 
                     {data && <EmployerList employers={data.getEmployers.data} />}
 

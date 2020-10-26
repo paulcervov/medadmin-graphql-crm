@@ -11,21 +11,21 @@ function App() {
         <Router>
             <Switch>
 
-                <Route exact path="/">
-                    <Index/>
-                </Route>
+                <Route exact path="/" component={Index} />
 
-                <Route path="/clinic">
-                    <ClinicIndex/>
-                </Route>
+                <Route path="/clinic" component={ClinicIndex} />
 
-                <Route path="/employers">
-                    <EmployersIndex/>
-                </Route>
+                <Route
+                    path="/employers"
+                    render={({ match: { path } }) => (
+                        <>
+                            <Route path={`${path}/`} component={EmployersIndex} exact />
+                            <Route path={`${path}/create`} component={EmployersCreate} />
+                        </>
+                    )}
+                />
 
-                <Route path="/login">
-                    <Login/>
-                </Route>
+                <Route path="/login" component={Login} />
 
             </Switch>
         </Router>
