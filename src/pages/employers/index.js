@@ -37,6 +37,23 @@ const GET_EMPLOYERS = gql`
 function Index() {
     const {data, loading, error, fetchMore} = useQuery(GET_EMPLOYERS);
 
+    async function onClickLoadMore() {
+        await fetchMore({
+            variables: {
+                page: data.getEmployers.paginatorInfo.currentPage + 1
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                return Object.assign({}, prev, {
+                    getEmployers: {
+                        data: [...prev.getEmployers.data, ...fetchMoreResult.getEmployers.data],
+                        paginatorInfo: {...prev.getEmployers.paginatorInfo, ...fetchMoreResult.getEmployers.paginatorInfo},
+                    }
+                });
+            }
+        })
+    }
+
     return (
         <LayoutDashboard>
             <div className="container">
@@ -55,11 +72,16 @@ function Index() {
                         </div>
                     </div>
 
-                    {loading && <p>Loading...</p>}
-                    {error && <p>ERROR</p>}
-                    {!data && <p>Not found</p>}
+                    {loading && <div className="alert alert-secondary">Загрузка...</div>}
+                    {error && <div className="alert alert-danger">Ошибка</div>}
+                    {!data && <div className="alert alert-warning">Не найдено</div>}
 
-                    {data && <EmployerList employers={data.getEmployers.data}/>}
+                    {data && <EmployerList employers={data.getEmployers.data} />}
+
+                    {data && <button className="btn btn-primary"
+                            onClick={onClickLoadMore}
+                            disabled={!data.getEmployers.paginatorInfo.hasMorePages}
+                    >Загрузить еще</button>}
                 </div>
 
             </div>
