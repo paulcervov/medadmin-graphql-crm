@@ -1,7 +1,7 @@
 import React from 'react';
-import ButtonEdit from '../../../common/Button/Edit';
-import ButtonDelete from '../../../common/Button/Delete';
-import ButtonRestore from '../../../common/Button/Restore';
+import IconEdit from '../../../common/Icons/Edit';
+import IconDelete from '../../../common/Icons/Delete';
+import IconRestore from '../../../common/Icons/Restore';
 import EmployerType from '../../../../enums/Employer/Type'
 import {Link, useRouteMatch} from "react-router-dom";
 
@@ -21,17 +21,32 @@ function Item({employer}) {
                 </div>
 
                 <div className="col-sm-7">
-                    {(employer.type === EmployerType.DOCTOR) && (employer.directions.length) && (<div className="font-weight-bold">{employer.directions.map(direction => direction.name).join(', ')}</div>) }
+                    {(employer.type === EmployerType.DOCTOR) && (employer.directions.length) && (<div
+                        className="font-weight-bold">{employer.directions.map(direction => direction.name).join(', ')}</div>)}
                     {(employer.type === EmployerType.DOCTOR) && <div>Процент от услуги: {employer.percentage}</div>}
                 </div>
 
                 <div className="col-sm-auto ml-sm-auto">
 
-                    {employer.deleted_at && <ButtonRestore url={`#`}/>}
+                    {employer.deleted_at && <button
+                        className="btn btn-light"
+                        title="Восстановить">
+                        <IconRestore/>
+                    </button>}
 
-                    {!employer.deleted_at && <ButtonEdit to={`${path}/${employer.id}/edit`}/>}
+                    {!employer.deleted_at && <Link
+                        className="btn btn-primary"
+                        title="Редактировать"
+                        to={`${path}/${employer.id}/edit`}
+                    >
+                        <IconEdit/>
+                    </Link>}
 
-                    {!employer.deleted_at && <ButtonDelete url={`#`}/>}
+                    {!employer.deleted_at && <button
+                        className="btn btn-danger ml-sm-2"
+                        title="Удалить">
+                        <IconDelete/>
+                    </button>}
                 </div>
             </div>
         </div>
