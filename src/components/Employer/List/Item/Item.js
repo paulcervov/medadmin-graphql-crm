@@ -2,7 +2,7 @@ import React from 'react';
 import IconEdit from '../../../common/Icons/Edit';
 import IconDelete from '../../../common/Icons/Delete';
 import IconRestore from '../../../common/Icons/Restore';
-import EmployerType from '../../../../enums/Employer/Type'
+import {Role as EmployerRole} from '../../../../types/Employer/Role';
 import {Link, useRouteMatch} from "react-router-dom";
 
 function Item({employer}) {
@@ -21,9 +21,9 @@ function Item({employer}) {
                 </div>
 
                 <div className="col-sm-7">
-                    {(employer.type === EmployerType.DOCTOR) && (employer.directions.length) && (<div
+                    {(employer.type === EmployerRole.DOCTOR) && (employer.directions.length) && (<div
                         className="font-weight-bold">{employer.directions.map(direction => direction.name).join(', ')}</div>)}
-                    {(employer.type === EmployerType.DOCTOR) && <div>Процент от услуги: {employer.percentage}</div>}
+                    {(employer.type === EmployerRole.DOCTOR) && <div>Процент от услуги: {employer.percentage}</div>}
                 </div>
 
                 <div className="col-sm-auto ml-sm-auto">
