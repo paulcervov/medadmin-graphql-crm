@@ -6,9 +6,9 @@ import {
     useQuery
 } from "@apollo/client";
 
-const GET_EMPLOYERS = gql`
-    query getEmployers($page: Int = 1, $trashed: Trashed = WITH) {
-        getEmployers(page: $page, trashed: $trashed) {
+const FIND_EMPLOYERS = gql`
+    query findEmployers($page: Int = 1, $trashed: Trashed = WITHOUT) {
+        findEmployers(page: $page, trashed: $trashed) {
             data {
                 id
                 last_name
@@ -32,19 +32,19 @@ const GET_EMPLOYERS = gql`
 `;
 
 function List() {
-    const {data, loading, error, fetchMore} = useQuery(GET_EMPLOYERS);
+    const {data, loading, error, fetchMore} = useQuery(FIND_EMPLOYERS, {variables: {trashed: 'WITH'}});
 
     async function onClickLoadMore() {
         await fetchMore({
             variables: {
-                page: data.getEmployers.paginatorInfo.currentPage + 1
+                page: data.findEmployers.paginatorInfo.currentPage + 1
             },
             updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) return prev;
                 return Object.assign({}, prev, {
-                    getEmployers: {
-                        data: [...prev.getEmployers.data, ...fetchMoreResult.getEmployers.data],
-                        paginatorInfo: {...prev.getEmployers.paginatorInfo, ...fetchMoreResult.getEmployers.paginatorInfo},
+                    findEmployers: {
+                        data: [...prev.findEmployers.data, ...fetchMoreResult.findEmployers.data],
+                        paginatorInfo: {...prev.findEmployers.paginatorInfo, ...fetchMoreResult.findEmployers.paginatorInfo},
                     }
                 });
             }
@@ -65,9 +65,9 @@ function List() {
 
 
     return <EmployerList
-        employers={data.getEmployers.data}
+        employers={data.findEmployers.data}
         onClickLoadMore={onClickLoadMore}
-        canClickLoadMore={data.getEmployers.paginatorInfo.hasMorePages}
+        canClickLoadMore={data.findEmployers.paginatorInfo.hasMorePages}
     />;
 }
 
