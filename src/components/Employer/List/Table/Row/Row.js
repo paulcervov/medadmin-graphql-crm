@@ -1,8 +1,8 @@
 import React from 'react';
-import IconEdit from '../../../common/Icons/Edit';
-import IconDelete from '../../../common/Icons/Delete';
-import IconRestore from '../../../common/Icons/Restore';
-import {Role as EmployerRole} from '../../../../types/Employer/Role';
+import IconEdit from '../../../../common/Icons/Edit';
+import IconDelete from '../../../../common/Icons/Delete';
+import IconRestore from '../../../../common/Icons/Restore';
+import {Role as EmployerRole} from '../../../../../types/Employer/Role';
 import {Link, useRouteMatch} from "react-router-dom";
 
 function Row({employer}) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import EmployerTable from "../Table/Table";
+import EmployerTable from "./Table/Table";
 
 function List({employers, onClickLoadMore, canClickLoadMore}) {
     return <div className="border pl-sm-4 pr-sm-4 pb-sm-3 pt-sm-3">
