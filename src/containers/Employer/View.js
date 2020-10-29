@@ -1,6 +1,6 @@
 import React from 'react';
 import {gql, useQuery} from "@apollo/client";
-import ComponentsEmployerView from '../../components/Employer/View/View'
+import EmployerView from '../../components/Employer/View/View'
 
 const GET_EMPLOYER = gql`
     query getEmployer($id: ID!) {
@@ -32,7 +32,7 @@ function Show({id}) {
         return <div className="alert alert-warning">Не найдено</div>;
     }
 
-    return <ComponentsEmployerView employer={data.getEmployer}/>;
+    return <EmployerView employer={data.getEmployer}/>;
 }
 
 export default Show;
