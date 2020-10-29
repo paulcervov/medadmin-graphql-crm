@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import EmployerList from "../../components/Employer/List/List";
+import EmployerTable from "../../components/Employer/Table/Table";
 import LayoutDashboard from "../../components/Layout/Dashboard";
 
 import {
@@ -75,7 +75,7 @@ function Index() {
                     {error && <div className="alert alert-danger">Ошибка</div>}
                     {!loading && !data && <div className="alert alert-warning">Не найдено</div>}
 
-                    {data && <EmployerList employers={data.getEmployers.data} />}
+                    {data && <EmployerTable employers={data.getEmployers.data} />}
 
                     {data && <button className="btn btn-primary"
                             onClick={onClickLoadMore}
