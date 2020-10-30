@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import EmployerTable from "./Table/Table";
 
-function List({employers, searchQuery, onInputSearchQuery, onClickLoadMore, canClickLoadMore}) {
+function List({employers, searchQuery, onInputSearchQuery, onClickLoadMore, canClickLoadMore }) {
     return <div className="border pl-sm-4 pr-sm-4 pb-sm-3 pt-sm-3">
 
             <h2 className="border-bottom pb-sm-2 mb-sm-4">Список сотрудников</h2>

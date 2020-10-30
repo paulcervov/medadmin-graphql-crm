@@ -1,11 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import EmployerList from "../../components/Employer/List/List";
 import {gql, useQuery} from "@apollo/client";
-import {debounce} from 'lodash';
 
 const FIND_EMPLOYERS = gql`
-    query findEmployers($page: Int = 1, $trashed: Trashed = WITHOUT) {
-        findEmployers(page: $page, trashed: $trashed) {
+    query findEmployers($page: Int = 1, $searchQuery: String, $trashed: Trashed = WITHOUT) {
+        findEmployers(page: $page, searchQuery: $searchQuery, trashed: $trashed) {
             data {
                 id
                 last_name
@@ -29,9 +28,8 @@ const FIND_EMPLOYERS = gql`
 `;
 
 function List() {
-    const isInitialMount = useRef(true);
     const [searchQuery, setSearchQuery] = useState('');
-    const {data, loading, error, fetchMore, refetch} = useQuery(FIND_EMPLOYERS, {
+    const {data, loading, error, fetchMore} = useQuery(FIND_EMPLOYERS, {
         variables: {
             trashed: 'WITH',
             searchQuery
@@ -56,23 +54,9 @@ function List() {
         })
     }
 
-    const refetchDebounced = debounce( (...args) => refetch(...args), 200);
-
     function onInputSearchQuery(event) {
         setSearchQuery(event.target.value);
     }
-
-    useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-        } else {
-            refetchDebounced();
-        }
-
-        return () => {
-            refetchDebounced.cancel();
-        }
-    }, [searchQuery])
 
     if (loading) {
         return <div className="alert alert-secondary">Загрузка...</div>;
@@ -85,7 +69,6 @@ function List() {
     if (!data) {
         return <div className="alert alert-warning">Не найдено</div>;
     }
-
 
     return <EmployerList
         employers={data.findEmployers.data}
