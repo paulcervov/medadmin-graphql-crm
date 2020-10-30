@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import EmployerList from "../../components/Employer/List/List";
-
 import {gql, useQuery} from "@apollo/client";
+import {debounce} from 'lodash';
 
 const FIND_EMPLOYERS = gql`
     query findEmployers($page: Int = 1, $trashed: Trashed = WITHOUT) {
@@ -56,7 +56,9 @@ function List() {
         })
     }
 
-    async function onInputSearchQuery(event) {
+    const refetchDebounced = debounce( (...args) => refetch(...args), 200);
+
+    function onInputSearchQuery(event) {
         setSearchQuery(event.target.value);
     }
 
@@ -64,9 +66,12 @@ function List() {
         if (isInitialMount.current) {
             isInitialMount.current = false;
         } else {
-            refetch();
+            refetchDebounced();
         }
 
+        return () => {
+            refetchDebounced.cancel();
+        }
     }, [searchQuery])
 
     if (loading) {
@@ -87,7 +92,7 @@ function List() {
         onInputSearchQuery={onInputSearchQuery}
         searchQuery={searchQuery}
         onClickLoadMore={onClickLoadMore}
-        canClickLoadMore={data.findEmployers.paginatorInfo.hasMorePages}
+        canClickLoadMore={data.findEmployers.paginatorInfo.hasMorePages && !loading}
     />;
 }
 
