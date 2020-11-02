@@ -1,12 +1,12 @@
 import React from 'react';
-
 import LayoutDashboard from "../../components/Layout/Dashboard";
+import EmployerFormContainer from '../../components/Employer/Form/Container'
 
 function Create() {
     return (
         <LayoutDashboard>
             <div className="container">
-                <h2>Новый сотрудник</h2>
+                <EmployerFormContainer/>
             </div>
         </LayoutDashboard>
     )

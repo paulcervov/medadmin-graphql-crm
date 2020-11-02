@@ -1,6 +1,6 @@
 import React from 'react';
 import {gql, useQuery} from "@apollo/client";
-import EmployerView from '../../components/Employer/View/View'
+import EmployerView from './View'
 
 const GET_EMPLOYER = gql`
     query getEmployer($id: ID!) {
@@ -16,7 +16,7 @@ const GET_EMPLOYER = gql`
     }
 `;
 
-function Show({id}) {
+function Container({id}) {
 
     const {data, loading, error} = useQuery(GET_EMPLOYER, {variables: {id}});
 
@@ -35,4 +35,4 @@ function Show({id}) {
     return <EmployerView employer={data.getEmployer}/>;
 }
 
-export default Show;
+export default Container;
