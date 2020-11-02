@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import EmployerList from "../../components/Employer/List/List";
+import EmployerList from "./List";
 import {gql, useQuery} from "@apollo/client";
+import {Link} from "react-router-dom";
 
 const FIND_EMPLOYERS = gql`
     query findEmployers($page: Int = 1, $searchQuery: String, $trashed: Trashed = WITHOUT) {
@@ -27,7 +28,7 @@ const FIND_EMPLOYERS = gql`
     }
 `;
 
-function List() {
+function Container() {
     const [searchQuery, setSearchQuery] = useState('');
     const {data, loading, error, fetchMore} = useQuery(FIND_EMPLOYERS, {
         variables: {
@@ -54,29 +55,47 @@ function List() {
         })
     }
 
-    function onInputSearchQuery(event) {
-        setSearchQuery(event.target.value);
+    function onInputSearchQuery(e) {
+        setSearchQuery(e.target.value);
     }
 
-    if (loading) {
-        return <div className="alert alert-secondary">Загрузка...</div>;
-    }
+    return (<div className="border pl-sm-4 pr-sm-4 pb-sm-3 pt-sm-3">
 
-    if (error) {
-        return <div className="alert alert-danger">Ошибка!</div>;
-    }
+        {loading && <div className="alert alert-secondary">Загрузка...</div>}
 
-    if (!data) {
-        return <div className="alert alert-warning">Не найдено</div>;
-    }
+        {error && <div className="alert alert-danger">Ошибка!</div>}
 
-    return <EmployerList
-        employers={data.findEmployers.data}
-        onInputSearchQuery={onInputSearchQuery}
-        searchQuery={searchQuery}
-        onClickLoadMore={onClickLoadMore}
-        canClickLoadMore={data.findEmployers.paginatorInfo.hasMorePages && !loading}
-    />;
+        {!loading && !error && !data && <div className="alert alert-warning">Не найдено</div>}
+
+        {data && <>
+            <h2 className="border-bottom pb-sm-2 mb-sm-4">Список сотрудников</h2>
+
+            <div className="row mb-sm-3">
+
+                <div className="col-sm-4">
+                    <input
+                        className="form-control"
+                        placeholder="Введите текст"
+                        autoComplete="off"
+                        onInput={onInputSearchQuery}
+                        value={searchQuery}
+                    />
+                </div>
+
+                <div className="col-sm-auto ml-sm-auto">
+                    <Link className="btn btn-primary" to="/employers/create">Новый сотрудник</Link>
+                </div>
+            </div>
+
+            <EmployerList employers={data.findEmployers.data}/>
+
+            <button className="btn btn-primary"
+                    onClick={onClickLoadMore}
+                    disabled={!data.findEmployers.paginatorInfo.hasMorePages}
+            >Загрузить еще
+            </button>
+        </>}
+    </div>);
 }
 
-export default List;
+export default Container;
