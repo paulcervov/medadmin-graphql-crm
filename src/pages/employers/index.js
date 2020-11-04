@@ -1,15 +1,15 @@
 import React from 'react';
-import LayoutDashboard from "../../components/Layout/Dashboard";
+import DashboardLayout from "../../components/Layout/Dashboard";
 import EmployerListContainer from '../../components/Employer/List/Container';
 
 function Index() {
 
     return (
-        <LayoutDashboard>
+        <DashboardLayout>
             <div className="container">
                 <EmployerListContainer/>
             </div>
-        </LayoutDashboard>
+        </DashboardLayout>
     )
 }
 
