@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import LayoutApp from '../Layout/App';
+import AppLayout from '../Layout/App';
 
 function Auth({children}) {
     return (
-        <LayoutApp>
+        <AppLayout>
             <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
                 <div className="container">
 
@@ -16,7 +16,7 @@ function Auth({children}) {
             <main className="py-4">
                 {children}
             </main>
-        </LayoutApp>
+        </AppLayout>
     );
 }
 

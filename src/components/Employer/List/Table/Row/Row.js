@@ -1,11 +1,11 @@
 import React from 'react';
-import IconEdit from '../../../common/Icons/Edit';
-import IconDelete from '../../../common/Icons/Delete';
-import IconRestore from '../../../common/Icons/Restore';
-import {Role as EmployerRole} from '../../../../types/Employer/Role';
+import IconEdit from '../../../../common/Icons/Edit';
+import IconDelete from '../../../../common/Icons/Delete';
+import IconRestore from '../../../../common/Icons/Restore';
+import {Role as EmployerRole} from '../../../../../types/Employer/Role';
 import {Link, useRouteMatch} from "react-router-dom";
 
-function Item({employer}) {
+function Row({employer}) {
 
     const {path} = useRouteMatch();
 
@@ -51,4 +51,4 @@ function Item({employer}) {
     );
 }
 
-export default Item;
+export default Row;

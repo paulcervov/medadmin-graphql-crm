@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import LayoutApp from '../Layout/App';
+import AppLayout from '../Layout/App';
 
 function Dashboard({children}) {
     return (
-        <LayoutApp>
+        <AppLayout>
             <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
                 <div className="container">
 
@@ -31,7 +31,7 @@ function Dashboard({children}) {
             <main className="py-4">
                 {children}
             </main>
-        </LayoutApp>
+        </AppLayout>
     );
 }
 

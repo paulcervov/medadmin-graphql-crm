@@ -1,12 +1,12 @@
 import React from 'react';
 import DashboardLayout from "../../components/Layout/Dashboard";
-import EmployerFormContainer from '../../components/Employer/Form/Container'
+import EmployerForm from '../../components/Employer/Form/Form';
 
 function Edit({match: {params: {id}}}) {
     return (
         <DashboardLayout>
             <div className="container">
-                <EmployerFormContainer id={id}/>
+                <EmployerForm id={id}/>
             </div>
         </DashboardLayout>
     )

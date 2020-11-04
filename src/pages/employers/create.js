@@ -1,12 +1,12 @@
 import React from 'react';
 import DashboardLayout from "../../components/Layout/Dashboard";
-import EmployerFormContainer from '../../components/Employer/Form/Container'
+import EmployerForm from '../../components/Employer/Form/Form'
 
 function Create() {
     return (
         <DashboardLayout>
             <div className="container">
-                <EmployerFormContainer/>
+                <EmployerForm/>
             </div>
         </DashboardLayout>
     )
