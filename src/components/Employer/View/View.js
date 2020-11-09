@@ -13,6 +13,9 @@ const GET_EMPLOYER = gql`
             phone
             type
             percentage
+            directions {
+                name
+            }
         }
     }
 `;
@@ -62,7 +65,7 @@ function View() {
             {(data.getEmployer.type === EmployerRole.DOCTOR) && <>
                 <div className="col-sm-8">
                     <div className="mb-sm-1 mt-sm-3">Направления</div>
-                    <div className="font-weight-bolder">{data.getEmployer.directions.join(', ')}</div>
+                    <div className="font-weight-bolder">{data.getEmployer.directions.map(direction => direction.name).join(', ')}</div>
                 </div>
             </>}
         </div>
