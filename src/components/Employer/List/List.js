@@ -39,23 +39,21 @@ const FIND_EMPLOYERS = gql`
     }
 `;
 
-const sortVariants = {
+const sortingOptions = {
     "А-Я": [{"field": "LAST_NAME", "order": "ASC"}],
     "По дате": [{"field": "CREATED_AT", "order": "ASC"}]
 };
 
 function List() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [orderBy, setOrderBy] = useState(sortVariants["А-Я"]);
+    const [orderBy, setOrderBy] = useState(sortingOptions["А-Я"]);
 
     const orderBySelect = createRef();
 
     useEffect(() => {
-        const currentSortVariantKey = Object.keys(sortVariants).find(key => sortVariants[key] === orderBy);
-        if (orderBySelect.current) {
-            orderBySelect.current.value = currentSortVariantKey;
-        }
-    });
+        const currentSortVariantKey = Object.keys(sortingOptions).find(key => sortingOptions[key] === orderBy);
+        orderBySelect.current.value = currentSortVariantKey;
+    }, [orderBy, orderBySelect]);
 
     const {data, loading, error, fetchMore} = useQuery(FIND_EMPLOYERS, {
         variables: {
@@ -84,7 +82,7 @@ function List() {
     }
 
     function onChangeOrderBy(e) {
-        setOrderBy(sortVariants[e.target.value]);
+        setOrderBy(sortingOptions[e.target.value]);
     }
 
     function onInputSearchQuery(e) {
@@ -99,7 +97,7 @@ function List() {
 
             <div className="col-sm-2">
                 <select className="form-control" onChange={onChangeOrderBy} ref={orderBySelect}>
-                    {Object.keys(sortVariants).map(key => <option value={key} key={key}>{key}</option>)}
+                    {Object.keys(sortingOptions).map(key => <option value={key} key={key}>{key}</option>)}
                 </select>
             </div>
 
