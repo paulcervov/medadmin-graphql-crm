@@ -1,6 +1,7 @@
 import React from 'react';
 import {gql, useQuery} from "@apollo/client";
 import {Role as EmployerRole, RoleDescription as EmployerRoleDescription} from '../../../types/Employer/Role';
+import {useRouteMatch} from "react-router-dom";
 
 const GET_EMPLOYER = gql`
     query getEmployer($id: ID!) {
@@ -16,7 +17,9 @@ const GET_EMPLOYER = gql`
     }
 `;
 
-function View({id}) {
+function View() {
+
+    const {params: {id}} = useRouteMatch();
 
     const {data, loading, error} = useQuery(GET_EMPLOYER, {variables: {id}});
 

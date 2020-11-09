@@ -2,12 +2,12 @@ import React from 'react';
 import DashboardLayout from "../../components/Layout/Dashboard";
 import EmployerView from '../../components/Employer/View/View';
 
-function Show({match: {params: {id}}}) {
+function Show() {
 
     return (
         <DashboardLayout>
             <div className="container">
-                <EmployerView id={id}/>
+                <EmployerView />
             </div>
         </DashboardLayout>
     )
