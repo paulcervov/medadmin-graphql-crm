@@ -20,9 +20,9 @@ function Row({employer}) {
             </div>
 
             <div className="col-sm-7">
-                {(employer.type === EmployerRole.DOCTOR) && (employer.directions.length) && (<div
+                {(employer.role_id === EmployerRole.DOCTOR) && (employer.directions.length) && (<div
                     className="font-weight-bold">{employer.directions.map(direction => direction.name).join(', ')}</div>)}
-                {(employer.type === EmployerRole.DOCTOR) && <div>Процент от услуги: {employer.percentage}</div>}
+                {(employer.role_id === EmployerRole.DOCTOR) && <div>Процент от услуги: {employer.percentage}</div>}
             </div>
 
             <div className="col-sm-auto ml-sm-auto">
@@ -41,11 +41,11 @@ function Row({employer}) {
                     <IconEdit/>
                 </Link>}
 
-                {!employer.deleted_at && <button
+                {/*{!employer.deleted_at && <button
                     className="btn btn-danger ml-sm-2"
                     title="Удалить">
                     <IconDelete/>
-                </button>}
+                </button>}*/}
             </div>
         </div>
     );

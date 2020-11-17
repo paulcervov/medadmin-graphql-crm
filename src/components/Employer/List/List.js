@@ -5,17 +5,14 @@ import {Link} from "react-router-dom";
 
 const FIND_EMPLOYERS = gql`
     query findEmployers(
+        $page: Int,
         $searchQuery: String,
-        $orderBy: [FindEmployersOrderByOrderByClause!],
-        $page: Int = 1,
-        $trashed: Trashed = WITHOUT
-
+        $orderBy: OrderByInput,
     ) {
-        findEmployers(
+        findUsers(
+            page: $page,
             searchQuery: $searchQuery,
             orderBy: $orderBy,
-            page: $page,
-            trashed: $trashed
         ) {
             data {
                 id
@@ -24,42 +21,38 @@ const FIND_EMPLOYERS = gql`
                 middle_name
                 email
                 phone
-                type
+                role_id
                 percentage
                 directions {
                     name
                 }
-                deleted_at
             }
-            paginatorInfo {
-                currentPage
-                hasMorePages
-            }
+            currentPage
+            hasMorePages
         }
     }
 `;
 
-const sortingOptions = {
-    "А-Я": [{"field": "LAST_NAME", "order": "ASC"}],
-    "По дате": [{"field": "CREATED_AT", "order": "ASC"}]
+const orderByOptions = {
+    'А-Я': {column: 'last_name', direction: 'ASC'},
+    'По дате': {column: 'created_at', direction: 'DESC'}
 };
 
 function List() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [orderBy, setOrderBy] = useState(sortingOptions["А-Я"]);
+    const [orderBy, setOrderBy] = useState(orderByOptions['А-Я']);
 
     const orderBySelect = createRef();
 
     useEffect(() => {
-        const currentSortVariantKey = Object.keys(sortingOptions).find(key => sortingOptions[key] === orderBy);
-        orderBySelect.current.value = currentSortVariantKey;
+        const currentOrderByValue = Object.keys(orderByOptions).find(value => orderByOptions[value] === orderBy);
+        orderBySelect.current.value = currentOrderByValue;
     }, [orderBy, orderBySelect]);
 
     const {data, loading, error, fetchMore} = useQuery(FIND_EMPLOYERS, {
         variables: {
             searchQuery,
             orderBy,
-            trashed: 'WITH',
         },
         pollInterval: (1000 * 60),
     });
@@ -67,14 +60,14 @@ function List() {
     async function onClickLoadMore() {
         await fetchMore({
             variables: {
-                page: data.findEmployers.paginatorInfo.currentPage + 1
+                page: data.findUsers.currentPage + 1
             },
             updateQuery: (prev, {fetchMoreResult}) => {
                 if (!fetchMoreResult) return prev;
                 return Object.assign({}, prev, {
-                    findEmployers: {
-                        data: [...prev.findEmployers.data, ...fetchMoreResult.findEmployers.data],
-                        paginatorInfo: {...prev.findEmployers.paginatorInfo, ...fetchMoreResult.findEmployers.paginatorInfo},
+                    findUsers: {
+                        data: [...prev.findUsers.data, ...fetchMoreResult.findUsers.data],
+                        // TODO add merge currentPage and hasMorePages
                     }
                 });
             }
@@ -82,7 +75,7 @@ function List() {
     }
 
     function onChangeOrderBy(e) {
-        setOrderBy(sortingOptions[e.target.value]);
+        setOrderBy(orderByOptions[e.target.value]);
     }
 
     function onInputSearchQuery(e) {
@@ -97,7 +90,7 @@ function List() {
 
             <div className="col-sm-2">
                 <select className="form-control" onChange={onChangeOrderBy} ref={orderBySelect}>
-                    {Object.keys(sortingOptions).map(key => <option value={key} key={key}>{key}</option>)}
+                    {Object.keys(orderByOptions).map(value => <option value={value} key={value}>{value}</option>)}
                 </select>
             </div>
 
@@ -120,15 +113,15 @@ function List() {
 
         {error && <div className="alert alert-danger">Ошибка!</div>}
 
-        {!loading && !error && !data.findEmployers.data.length && <div className="alert alert-warning">Не найдено</div>}
+        {!loading && !error && !data.findUsers.data.length && <div className="alert alert-warning">Не найдено</div>}
 
-        {data && !!data.findEmployers.data.length && <>
+        {data && !!data.findUsers.data.length && <>
 
-            <EmployerTable employers={data.findEmployers.data}/>
+            <EmployerTable employers={data.findUsers.data}/>
 
             <button className="btn btn-primary"
                     onClick={onClickLoadMore}
-                    disabled={!data.findEmployers.paginatorInfo.hasMorePages}
+                    disabled={!data.findUsers.hasMorePages}
             >Загрузить еще
             </button>
 
