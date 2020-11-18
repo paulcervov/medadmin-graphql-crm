@@ -5,13 +5,13 @@ import {useRouteMatch} from "react-router-dom";
 
 const GET_EMPLOYER = gql`
     query getEmployer($id: ID!) {
-        getEmployer(id: $id) {
+        getUser(id: $id) {
             id
             last_name
             first_name
             middle_name
             phone
-            type
+            role_id
             percentage
             directions {
                 name
@@ -40,17 +40,17 @@ function View() {
 
     return (<div className="border pl-sm-4 pr-sm-4 pb-sm-3 pt-sm-3">
 
-        <h2 className="border-bottom pb-sm-2 mb-sm-4">{data.getEmployer.last_name} {data.getEmployer.first_name} {data.getEmployer.middle_name}</h2>
+        <h2 className="border-bottom pb-sm-2 mb-sm-4">{data.getUser.last_name} {data.getUser.first_name} {data.getUser.middle_name}</h2>
         <div className="row">
             <div className="col-sm-4">
                 <div className="mb-sm-1">Телефон</div>
-                <div className="font-weight-bolder">{data.getEmployer.phone}</div>
+                <div className="font-weight-bolder">{data.getUser.phone}</div>
             </div>
 
-            {(data.getEmployer.type === EmployerRole.DOCTOR) && <>
+            {(data.getUser.role_id === EmployerRole.DOCTOR) && <>
                 <div className="col-sm-4">
                     <div className="mb-sm-1 mt-sm-3">Процент от услуги</div>
-                    <div className="font-weight-bolder">{data.getEmployer.percentage}</div>
+                    <div className="font-weight-bolder">{data.getUser.percentage}</div>
                 </div>
             </>}
         </div>
@@ -59,13 +59,13 @@ function View() {
 
             <div className="col-sm-4">
                 <div className="mb-sm-1 mt-sm-3">Роль</div>
-                <div className="font-weight-bolder">{EmployerRoleDescription[data.getEmployer.type]}</div>
+                <div className="font-weight-bolder">{EmployerRoleDescription[data.getUser.role_id]}</div>
             </div>
 
-            {(data.getEmployer.type === EmployerRole.DOCTOR) && <>
+            {(data.getUser.role_id === EmployerRole.DOCTOR) && <>
                 <div className="col-sm-8">
                     <div className="mb-sm-1 mt-sm-3">Направления</div>
-                    <div className="font-weight-bolder">{data.getEmployer.directions.map(direction => direction.name).join(', ')}</div>
+                    <div className="font-weight-bolder">{data.getUser.directions.map(direction => direction.name).join(', ')}</div>
                 </div>
             </>}
         </div>
