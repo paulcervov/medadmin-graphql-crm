@@ -41,11 +41,11 @@ function Row({employer}) {
                     <IconEdit/>
                 </Link>}
 
-                {/*{!employer.deleted_at && <button
+                {!employer.deleted_at && <button
                     className="btn btn-danger ml-sm-2"
                     title="Удалить">
                     <IconDelete/>
-                </button>}*/}
+                </button>}
             </div>
         </div>
     );

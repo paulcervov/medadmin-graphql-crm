@@ -64,12 +64,14 @@ function List() {
             },
             updateQuery: (prev, {fetchMoreResult}) => {
                 if (!fetchMoreResult) return prev;
-                return Object.assign({}, prev, {
+
+                return {
                     findUsers: {
-                        data: [...prev.findUsers.data, ...fetchMoreResult.findUsers.data],
-                        // TODO add merge currentPage and hasMorePages
+                        currentPage: fetchMoreResult.findUsers.currentPage,
+                            hasMorePages: fetchMoreResult.findUsers.hasMorePages,
+                            data: [...prev.findUsers.data, ...fetchMoreResult.findUsers.data]
                     }
-                });
+                }
             }
         })
     }
