@@ -5,11 +5,13 @@ const GET_EMPLOYER = gql`
     query getEmployer($id: ID!) {
         getEmployer(id: $id) {
             id
-            last_name
-            first_name
-            middle_name
+            lastName
+            firstName
+            middleName
             phone
-            type
+            genderId
+            dateOfBirth
+            roleId
             percentage
         }
     }

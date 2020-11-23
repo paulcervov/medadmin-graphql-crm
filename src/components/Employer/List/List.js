@@ -9,19 +9,19 @@ const FIND_EMPLOYERS = gql`
         $searchQuery: String,
         $orderBy: OrderByInput,
     ) {
-        findUsers(
+        findEmployers(
             page: $page,
             searchQuery: $searchQuery,
             orderBy: $orderBy,
         ) {
             data {
                 id
-                last_name
-                first_name
-                middle_name
+                lastName
+                firstName
+                middleName
                 email
                 phone
-                role_id
+                roleId
                 percentage
                 directions {
                     name
@@ -34,8 +34,8 @@ const FIND_EMPLOYERS = gql`
 `;
 
 const orderByOptions = {
-    'А-Я': {column: 'last_name', direction: 'ASC'},
-    'По дате': {column: 'created_at', direction: 'DESC'}
+    'А-Я': {column: 'lastName', direction: 'ASC'},
+    'По дате': {column: 'createdAt', direction: 'DESC'}
 };
 
 function List() {
@@ -45,8 +45,7 @@ function List() {
     const orderBySelect = createRef();
 
     useEffect(() => {
-        const currentOrderByValue = Object.keys(orderByOptions).find(value => orderByOptions[value] === orderBy);
-        orderBySelect.current.value = currentOrderByValue;
+        orderBySelect.current.value = Object.keys(orderByOptions).find(value => orderByOptions[value] === orderBy);
     }, [orderBy, orderBySelect]);
 
     const {data, loading, error, fetchMore} = useQuery(FIND_EMPLOYERS, {
@@ -60,16 +59,16 @@ function List() {
     async function onClickLoadMore() {
         await fetchMore({
             variables: {
-                page: data.findUsers.currentPage + 1
+                page: data.findEmployers.currentPage + 1
             },
             updateQuery: (prev, {fetchMoreResult}) => {
                 if (!fetchMoreResult) return prev;
 
                 return {
-                    findUsers: {
-                        currentPage: fetchMoreResult.findUsers.currentPage,
-                            hasMorePages: fetchMoreResult.findUsers.hasMorePages,
-                            data: [...prev.findUsers.data, ...fetchMoreResult.findUsers.data]
+                    findEmployers: {
+                        currentPage: fetchMoreResult.findEmployers.currentPage,
+                            hasMorePages: fetchMoreResult.findEmployers.hasMorePages,
+                            data: [...prev.findEmployers.data, ...fetchMoreResult.findEmployers.data]
                     }
                 }
             }
@@ -115,15 +114,15 @@ function List() {
 
         {error && <div className="alert alert-danger">Ошибка!</div>}
 
-        {!loading && !error && !data.findUsers.data.length && <div className="alert alert-warning">Не найдено</div>}
+        {!loading && !error && !data.findEmployers.data.length && <div className="alert alert-warning">Не найдено</div>}
 
-        {data && !!data.findUsers.data.length && <>
+        {data && !!data.findEmployers.data.length && <>
 
-            <EmployerTable employers={data.findUsers.data}/>
+            <EmployerTable employers={data.findEmployers.data}/>
 
             <button className="btn btn-primary"
                     onClick={onClickLoadMore}
-                    disabled={!data.findUsers.hasMorePages}
+                    disabled={!data.findEmployers.hasMorePages}
             >Загрузить еще
             </button>
 
