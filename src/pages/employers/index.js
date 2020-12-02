@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Switch, useRouteMatch} from 'react-router-dom';
 import DashboardLayout from "../../components/Layout/Dashboard";
-import EmployerList from '../../components/Employer/List/List';
+import EmployerList from '../../containers/Employer/List';
 import CreatePage from "./create";
 import ShowPage from "./show";
 import EditPage from "./edit";
