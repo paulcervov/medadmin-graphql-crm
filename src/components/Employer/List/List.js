@@ -4,8 +4,9 @@ import {Link} from "react-router-dom";
 
 function List({
                   messages,
-                  findEmployersData,
                   loading,
+                  error,
+                  findEmployersData,
                   onChangeOrderBy,
                   orderBySelect,
                   orderByOptions,
@@ -57,9 +58,15 @@ function List({
             )}
 
             {loading &&
-            <div className="alert alert-secondary">Загрузка...</div>}
+            <div className="alert alert-secondary">Загрузка...
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>}
 
-            {!loading && !findEmployersData?.findEmployers?.data?.length &&
+            {error && <div className="alert alert-danger">Ошибка!</div>}
+
+            {!loading && !error && !findEmployersData?.findEmployers?.data?.length &&
             <div className="alert alert-warning">Не найдено</div>}
 
             {!!findEmployersData?.findEmployers?.data?.length && <>

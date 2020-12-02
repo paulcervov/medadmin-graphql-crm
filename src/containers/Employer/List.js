@@ -74,7 +74,6 @@ const orderByOptions = {
 function List() {
 
     const [messages, setMessages] = useState([]);
-
     const [searchQuery, setSearchQuery] = useState('');
     const [orderBy, setOrderBy] = useState(orderByOptions['А-Я']);
     const orderBySelect = createRef();
@@ -99,14 +98,6 @@ function List() {
         orderBySelect.current.value = Object.keys(orderByOptions).find(value => orderByOptions[value] === orderBy);
     }, [orderBy, orderBySelect]);
 
-
-    useEffect(() => {
-        if (findEmployersError || deleteEmployerError || restoreEmployerError) {
-            setMessages([...messages, {text: 'Что-то пошло не так', type: 'danger'}]);
-        }
-    }, [findEmployersError, deleteEmployerError, restoreEmployerError, messages]);
-
-
     function onChangeOrderBy(e) {
         setOrderBy(orderByOptions[e.target.value]);
     }
@@ -116,25 +107,16 @@ function List() {
     }
 
     async function onClickDelete(e) {
-        try {
-            const {data} = await deleteEmployer({variables: {id: e.currentTarget.dataset.id}});
-
-            if (data?.deleteEmployer?.success) {
-                setMessages([...messages, {text: data?.deleteEmployer?.message, type: 'success'}]);
-            }
-        } catch (err) {
-            setMessages([...messages, {text: 'Что-то пошло не так', type: 'danger'}]);
+        const {data} = await deleteEmployer({variables: {id: e.currentTarget.dataset.id}});
+        if (data?.deleteEmployer?.success) {
+            setMessages([...messages, {text: data?.deleteEmployer?.message, type: 'success'}]);
         }
     }
 
     async function onClickRestore(e) {
-        try {
-            const {data} = await restoreEmployer({variables: {id: e.currentTarget.dataset.id}});
-            if (data?.restoreEmployer?.success) {
-                setMessages([...messages, {text: data?.restoreEmployer?.message, type: 'success'}]);
-            }
-        } catch (err) {
-            setMessages([...messages, {text: 'Что-то пошло не так', type: 'danger'}]);
+        const {data} = await restoreEmployer({variables: {id: e.currentTarget.dataset.id}});
+        if (data?.restoreEmployer?.success) {
+            setMessages([...messages, {text: data?.restoreEmployer?.message, type: 'success'}]);
         }
     }
 
@@ -160,8 +142,9 @@ function List() {
 
     return (<EmployerList
         messages={messages}
-        findEmployersData={findEmployersData}
+        error={findEmployersError || deleteEmployerError || restoreEmployerError}
         loading={findEmployersLoading || deleteEmployerLoading || restoreEmployerLoading}
+        findEmployersData={findEmployersData}
         onChangeOrderBy={onChangeOrderBy}
         orderBySelect={orderBySelect}
         orderByOptions={orderByOptions}
