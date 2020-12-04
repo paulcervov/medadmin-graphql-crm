@@ -1,6 +1,6 @@
 import React from 'react';
 import {gql, useQuery} from "@apollo/client";
-import {Role as EmployerRole, RoleDescription as EmployerRoleDescription} from '../../../types/Employer/Role';
+import {Role, RoleLabel} from '../../../enums/Role';
 import {useRouteMatch} from "react-router-dom";
 
 const GET_EMPLOYER = gql`
@@ -49,7 +49,7 @@ function View() {
                 <div className="font-weight-bolder">{data.getEmployer.phone}</div>
             </div>
 
-            {(data.getEmployer.roleId === EmployerRole.DOCTOR) && <>
+            {(data.getEmployer.roleId === Role.Doctor.value) && <>
                 <div className="col-sm-4">
                     <div className="mb-sm-1 mt-sm-3">Процент от услуги</div>
                     <div className="font-weight-bolder">{data.getEmployer.percentage}</div>
@@ -61,10 +61,10 @@ function View() {
 
             <div className="col-sm-4">
                 <div className="mb-sm-1 mt-sm-3">Роль</div>
-                <div className="font-weight-bolder">{EmployerRoleDescription[data.getEmployer.roleId]}</div>
+                <div className="font-weight-bolder">{RoleLabel.get(Role.Doctor)}</div>
             </div>
 
-            {(data.getEmployer.roleId === EmployerRole.DOCTOR) && (data.getEmployer.directions.length > 0) && <>
+            {(data.getEmployer.roleId === Role.Doctor.value) && (data.getEmployer.directions.length > 0) && <>
                 <div className="col-sm-8">
                     <div className="mb-sm-1 mt-sm-3">Направления</div>
                     <div className="font-weight-bolder">{data.getEmployer.directions.map(direction => direction.name).join(', ')}</div>

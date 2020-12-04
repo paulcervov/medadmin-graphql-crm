@@ -1,6 +1,6 @@
 import React from 'react';
 import DashboardLayout from "../../components/Layout/Dashboard";
-import EmployerForm from '../../components/Employer/Form/Form';
+import EmployerForm from '../../containers/Employer/Form';
 
 function Edit({match: {params: {id}}}) {
     return (

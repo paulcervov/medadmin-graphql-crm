@@ -57,12 +57,7 @@ function List({
                 </div>
             )}
 
-            {loading &&
-            <div className="alert alert-secondary">Загрузка...
-                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>}
+            {loading && <div className="alert alert-secondary">Загрузка...</div>}
 
             {error && <div className="alert alert-danger">Ошибка!</div>}
 

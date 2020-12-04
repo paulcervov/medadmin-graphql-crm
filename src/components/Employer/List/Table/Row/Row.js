@@ -2,7 +2,7 @@ import React from 'react';
 import IconEdit from '../../../../common/Icons/Edit';
 import IconDelete from '../../../../common/Icons/Delete';
 import IconRestore from '../../../../common/Icons/Restore';
-import {Role as EmployerRole} from '../../../../../types/Employer/Role';
+import {Role} from '../../../../../enums/Role';
 import {Link, useRouteMatch} from "react-router-dom";
 
 function Row({employer, onClickDelete, onClickRestore}) {
@@ -20,11 +20,11 @@ function Row({employer, onClickDelete, onClickRestore}) {
             </div>
 
             <div className="col-sm-7">
-                {(employer.roleId === EmployerRole.DOCTOR) && (employer.directions.length > 0) && <>
+                {(employer.roleId === Role.Doctor.value) && (employer.directions.length > 0) && <>
                     <div
                         className="font-weight-bold">{employer.directions.map(direction => direction.name).join(', ')}</div>
                 </>}
-                {(employer.roleId === EmployerRole.DOCTOR) && <div>Процент от услуги: {employer.percentage}</div>}
+                {(employer.roleId === Role.Doctor.value) && <div>Процент от услуги: {employer.percentage}</div>}
             </div>
 
             <div className="col-sm-auto ml-sm-auto">
