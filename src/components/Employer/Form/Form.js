@@ -2,6 +2,7 @@ import React from 'react';
 import {useFormik} from 'formik';
 import * as Yup from '../../../yup';
 import {Role, RoleLabel} from "../../../enums/Role";
+import {PERCENTAGES} from "../../../constants/Employer";
 import {Gender, GenderLabel} from "../../../enums/Gender";
 
 function Form({getEmployerData, loading, error, handleSubmit, messages}) {
@@ -48,7 +49,7 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                 .required()
                 .label('Роль'),
             percentage: Yup.number()
-                .oneOf([10, 20, 30, 40, 50])
+                .oneOf(PERCENTAGES)
                 .required()
                 .label('Процент от услуги'),
         }),
@@ -106,18 +107,14 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                         </div>
                         {formik.values.roleId === Role.Doctor.value && (<div className="col-sm-3">
                             <div className="form-group">
-                                <label htmlFor="percentage">Роль</label>
+                                <label htmlFor="percentage">Процент от услуги</label>
                                 <select
                                     className={`form-control ${formik.touched.percentage && formik.errors.percentage ? 'is-invalid' : ''}`}
                                     id="percentage"
                                     {...formik.getFieldProps('percentage')}
                                 >
                                     <option value="">Выберите значение</option>
-                                    <option value={10}>10</option>
-                                    <option value={20}>20</option>
-                                    <option value={30}>30</option>
-                                    <option value={40}>40</option>
-                                    <option value={50}>50</option>
+                                    {PERCENTAGES.map(percentage => <option value={percentage}>{percentage}</option>)}
 
                                 </select>
                                 {formik.touched.percentage && formik.errors.percentage ? (
