@@ -1,9 +1,7 @@
 import React from 'react';
 import {useFormik} from 'formik';
 import * as Yup from '../../../yup';
-import {Role, RoleLabel} from "../../../enums/Role";
-import {PERCENTAGES} from "../../../constants/Employer";
-import {Gender, GenderLabel} from "../../../enums/Gender";
+import {GENDERS, ID_ROLE_DOCTOR, ROLES, PERCENTAGES} from "../../../constants/Employer";
 
 function Form({getEmployerData, loading, error, handleSubmit, messages}) {
 
@@ -36,7 +34,7 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                 .required()
                 .label('Телефон'),
             genderId: Yup.number()
-                .oneOf(Gender.enums.map(gender => gender.value))
+                .oneOf([...GENDERS.keys()])
                 .required()
                 .label('Пол'),
             dateOfBirth: Yup.date()
@@ -45,7 +43,7 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                 .required()
                 .label('Дата рождения'),
             roleId: Yup.number()
-                .oneOf(Role.enums.map(role => role.value))
+                .oneOf([...ROLES.keys()])
                 .required()
                 .label('Роль'),
             percentage: Yup.number()
@@ -97,15 +95,16 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                                     {...formik.getFieldProps('roleId')}
                                 >
                                     <option value="">Выберите роль</option>
-                                    {Role.enums.map(role => <option value={role.value}
-                                                                    key={role.value}>{RoleLabel.get(role)}</option>)}
+
+                                    {[...ROLES.entries()].map(([key, value]) => <option value={key}
+                                                                    key={key}>{value}</option>)}
                                 </select>
                                 {formik.touched.roleId && formik.errors.roleId ? (
                                     <span className="invalid-feedback">{formik.errors.roleId}</span>
                                 ) : null}
                             </div>
                         </div>
-                        {formik.values.roleId === Role.Doctor.value && (<div className="col-sm-3">
+                        {formik.values.roleId === ID_ROLE_DOCTOR && (<div className="col-sm-3">
                             <div className="form-group">
                                 <label htmlFor="percentage">Процент от услуги</label>
                                 <select
@@ -196,8 +195,9 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                                     {...formik.getFieldProps('genderId')}
                                 >
                                     <option value="">Выберите пол</option>
-                                    {Gender.enums.map(gender => <option value={gender.value}
-                                                                        key={gender.value}>{GenderLabel.get(gender)}</option>)}
+
+                                    {[...GENDERS.entries()].map(([key, value]) => <option value={key}
+                                                                        key={key}>{value}</option>)}
                                 </select>
                                 {formik.touched.genderId && formik.errors.genderId ? (
                                     <span className="invalid-feedback">{formik.errors.genderId}</span>
