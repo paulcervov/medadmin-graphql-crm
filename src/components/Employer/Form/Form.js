@@ -48,7 +48,9 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                 .label('Роль'),
             percentage: Yup.number()
                 .oneOf(PERCENTAGES)
-                .required()
+                .when('roleId', (roleId, schema) => {
+                    return parseInt(roleId) === ID_ROLE_DOCTOR ? schema.required() : schema;
+                })
                 .label('Процент от услуги'),
         }),
         onSubmit: (values) => {
@@ -104,7 +106,7 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                                 ) : null}
                             </div>
                         </div>
-                        {formik.values.roleId === ID_ROLE_DOCTOR && (<div className="col-sm-3">
+                        {parseInt(formik.values.roleId) === ID_ROLE_DOCTOR && (<div className="col-sm-3">
                             <div className="form-group">
                                 <label htmlFor="percentage">Процент от услуги</label>
                                 <select
