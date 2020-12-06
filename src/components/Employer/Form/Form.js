@@ -113,7 +113,7 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                                     {...formik.getFieldProps('percentage')}
                                 >
                                     <option value="">Выберите значение</option>
-                                    {PERCENTAGES.map(percentage => <option value={percentage}>{percentage}</option>)}
+                                    {PERCENTAGES.map(percentage => <option key={percentage} value={percentage}>{percentage}</option>)}
 
                                 </select>
                                 {formik.touched.percentage && formik.errors.percentage ? (

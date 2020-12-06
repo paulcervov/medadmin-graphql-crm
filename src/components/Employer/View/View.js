@@ -1,77 +1,48 @@
 import React from 'react';
-import {gql, useQuery} from "@apollo/client";
-import {Role, RoleLabel} from '../../../enums/Role';
-import {useRouteMatch} from "react-router-dom";
+import {ID_ROLE_DOCTOR, ROLES} from "../../../constants/Employer";
 
-const GET_EMPLOYER = gql`
-    query getEmployer($id: ID!) {
-        getEmployer(id: $id) {
-            id
-            lastName
-            firstName
-            middleName
-            phone
-            genderId
-            dateOfBirth
-            roleId
-            percentage
-            directions {
-                name
-            }
-        }
-    }
-`;
 
-function View() {
+function View({getEmployerData, loading, error}) {
 
-    const {params: {id}} = useRouteMatch();
+    return (<>
+        {loading && <div className="alert alert-secondary">Загрузка...</div>}
 
-    const {data, loading, error} = useQuery(GET_EMPLOYER, {variables: {id}});
+        {error && <div className="alert alert-danger">Ошибка!</div>}
 
-    if (loading) {
-        return <div className="alert alert-secondary">Загрузка...</div>;
-    }
+        {getEmployerData && <div className="border pl-sm-4 pr-sm-4 pb-sm-3 pt-sm-3">
 
-    if (error) {
-        return <div className="alert alert-danger">Ошибка!</div>;
-    }
-
-    if (!data) {
-        return <div className="alert alert-warning">Не найдено</div>;
-    }
-
-    return (<div className="border pl-sm-4 pr-sm-4 pb-sm-3 pt-sm-3">
-
-        <h2 className="border-bottom pb-sm-2 mb-sm-4">{data.getEmployer.lastName} {data.getEmployer.firstName} {data.getEmployer.middleName}</h2>
-        <div className="row">
-            <div className="col-sm-4">
-                <div className="mb-sm-1">Телефон</div>
-                <div className="font-weight-bolder">{data.getEmployer.phone}</div>
-            </div>
-
-            {(data.getEmployer.roleId === Role.Doctor.value) && <>
+            <h2 className="border-bottom pb-sm-2 mb-sm-4">{getEmployerData.getEmployer.lastName} {getEmployerData.getEmployer.firstName} {getEmployerData.getEmployer.middleName}</h2>
+            <div className="row">
                 <div className="col-sm-4">
-                    <div className="mb-sm-1 mt-sm-3">Процент от услуги</div>
-                    <div className="font-weight-bolder">{data.getEmployer.percentage}</div>
+                    <div className="mb-sm-1">Телефон</div>
+                    <div className="font-weight-bolder">{getEmployerData.getEmployer.phone}</div>
                 </div>
-            </>}
-        </div>
 
-        <div className="row">
-
-            <div className="col-sm-4">
-                <div className="mb-sm-1 mt-sm-3">Роль</div>
-                <div className="font-weight-bolder">{RoleLabel.get(Role.Doctor)}</div>
+                {(getEmployerData.getEmployer.roleId === ID_ROLE_DOCTOR) && <>
+                    <div className="col-sm-4">
+                        <div className="mb-sm-1 mt-sm-3">Процент от услуги</div>
+                        <div className="font-weight-bolder">{getEmployerData.getEmployer.percentage}</div>
+                    </div>
+                </>}
             </div>
 
-            {(data.getEmployer.roleId === Role.Doctor.value) && (data.getEmployer.directions.length > 0) && <>
-                <div className="col-sm-8">
-                    <div className="mb-sm-1 mt-sm-3">Направления</div>
-                    <div className="font-weight-bolder">{data.getEmployer.directions.map(direction => direction.name).join(', ')}</div>
+            <div className="row">
+
+                <div className="col-sm-4">
+                    <div className="mb-sm-1 mt-sm-3">Роль</div>
+                    <div className="font-weight-bolder">{ROLES.get(getEmployerData.getEmployer.roleId)}</div>
                 </div>
-            </>}
-        </div>
-    </div>);
+
+                {(getEmployerData.getEmployer.roleId === ID_ROLE_DOCTOR) && (getEmployerData.getEmployer.directions.length > 0) && <>
+                    <div className="col-sm-8">
+                        <div className="mb-sm-1 mt-sm-3">Направления</div>
+                        <div
+                            className="font-weight-bolder">{getEmployerData.getEmployer.directions.map(direction => direction.name).join(', ')}</div>
+                    </div>
+                </>}
+            </div>
+        </div>}
+    </>);
 }
 
 export default View;

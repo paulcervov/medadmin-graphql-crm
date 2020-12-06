@@ -1,6 +1,6 @@
 import React from 'react';
 import DashboardLayout from "../../components/Layout/Dashboard";
-import EmployerView from '../../components/Employer/View/View';
+import EmployerView from '../../containers/Employer/View';
 
 function Show() {
 
