@@ -4,30 +4,26 @@ import EmployerList from "../../components/Employer/List/List";
 
 const FIND_EMPLOYERS = gql`
     query FindEmployers(
-        $page: Int,
+        $offset: Int = 0,
         $searchQuery: String,
         $orderBy: OrderByInput,
     ) {
         findEmployers(
-            page: $page,
+            offset: $offset,
             searchQuery: $searchQuery,
             orderBy: $orderBy,
         ) {
-            data {
-                id
-                lastName
-                firstName
-                middleName
-                phone
-                roleId
-                percentage
-                directions {
-                    name
-                }
-                deletedAt
+            id
+            lastName
+            firstName
+            middleName
+            phone
+            roleId
+            percentage
+            directions {
+                name
             }
-            currentPage
-            hasMorePages
+            deletedAt
         }
     }
 `;
@@ -123,20 +119,8 @@ function List() {
     async function handleLoadMore() {
         await findEmployersFetchMore({
             variables: {
-                page: findEmployersData.findEmployers.currentPage + 1
+                offset: findEmployersData?.findEmployers?.length || 0
             },
-            updateQuery: (prev, {fetchMoreResult}) => {
-                if (!fetchMoreResult) return prev;
-
-                return {
-                    findEmployers: {
-                        currentPage: fetchMoreResult.findEmployers.currentPage,
-                        hasMorePages: fetchMoreResult.findEmployers.hasMorePages,
-                        __typename: fetchMoreResult.findEmployers.__typename,
-                        data: [...prev.findEmployers.data, ...fetchMoreResult.findEmployers.data]
-                    }
-                }
-            }
         });
     }
 

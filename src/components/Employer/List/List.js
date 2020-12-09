@@ -63,19 +63,18 @@ function List({
 
             {error && <div className="alert alert-danger">Ошибка!</div>}
 
-            {!loading && !error && !findEmployersData?.findEmployers?.data?.length &&
+            {!loading && !error && !findEmployersData?.findEmployers?.length &&
             <div className="alert alert-warning">Не найдено</div>}
 
-            {!!findEmployersData?.findEmployers?.data?.length && <>
+            {!!findEmployersData?.findEmployers?.length && <>
 
-                <EmployerTable employers={findEmployersData.findEmployers.data}
+                <EmployerTable employers={findEmployersData.findEmployers}
                                handleDelete={handleDelete}
                                handleRestore={handleRestore}
                 />
 
                 <button className="btn btn-primary"
                         onClick={handleLoadMore}
-                        disabled={!findEmployersData.findEmployers.hasMorePages}
                 >Загрузить еще
                 </button>
 
