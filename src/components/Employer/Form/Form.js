@@ -223,7 +223,7 @@ function Form({getEmployerData, loading, error, handleSubmit, messages}) {
                         </div>
                     </div>
 
-                    <button type="submit" className="btn btn-primary">Сохранить</button>
+                    <button type="submit" className="btn btn-primary" disabled={loading}>Сохранить</button>
                 </form>
             </div>
         </>

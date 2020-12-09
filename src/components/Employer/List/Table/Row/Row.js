@@ -13,7 +13,7 @@ function Row({employer, handleDelete, handleRestore}) {
         <div className="row p-2">
 
             <div className="col-sm-3">
-                <Link to={`/${path}/${employer.id}`}>
+                <Link to={`${path}/${employer.id}`}>
                     {employer.lastName} {employer.firstName} {employer.middleName}
                 </Link>
                 <div>{employer.phone}</div>
