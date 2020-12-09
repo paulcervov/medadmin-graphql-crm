@@ -106,21 +106,21 @@ function List() {
         setSearchQuery(e.target.value);
     }
 
-    async function onClickDelete(e) {
+    async function handleDelete(e) {
         const {data} = await deleteEmployer({variables: {id: e.currentTarget.dataset.id}});
         if (data?.deleteEmployer?.success) {
             setMessages([...messages, {text: data?.deleteEmployer?.message, type: 'success'}]);
         }
     }
 
-    async function onClickRestore(e) {
+    async function handleRestore(e) {
         const {data} = await restoreEmployer({variables: {id: e.currentTarget.dataset.id}});
         if (data?.restoreEmployer?.success) {
             setMessages([...messages, {text: data?.restoreEmployer?.message, type: 'success'}]);
         }
     }
 
-    async function onClickLoadMore() {
+    async function handleLoadMore() {
         await findEmployersFetchMore({
             variables: {
                 page: findEmployersData.findEmployers.currentPage + 1
@@ -150,9 +150,9 @@ function List() {
         orderByOptions={orderByOptions}
         onInputSearchQuery={onInputSearchQuery}
         searchQuery={searchQuery}
-        onClickLoadMore={onClickLoadMore}
-        onClickDelete={onClickDelete}
-        onClickRestore={onClickRestore}
+        handleLoadMore={handleLoadMore}
+        handleDelete={handleDelete}
+        handleRestore={handleRestore}
     />);
 }
 

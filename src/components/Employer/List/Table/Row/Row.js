@@ -5,7 +5,7 @@ import IconRestore from '../../../../common/Icons/Restore';
 import {ID_ROLE_DOCTOR} from "../../../../../constants/Employer";
 import {Link, useRouteMatch} from "react-router-dom";
 
-function Row({employer, onClickDelete, onClickRestore}) {
+function Row({employer, handleDelete, handleRestore}) {
 
     const {path} = useRouteMatch();
 
@@ -13,7 +13,7 @@ function Row({employer, onClickDelete, onClickRestore}) {
         <div className="row p-2">
 
             <div className="col-sm-3">
-                <Link to={`/employers/${employer.id}`}>
+                <Link to={`/${path}/${employer.id}`}>
                     {employer.lastName} {employer.firstName} {employer.middleName}
                 </Link>
                 <div>{employer.phone}</div>
@@ -31,7 +31,7 @@ function Row({employer, onClickDelete, onClickRestore}) {
 
                 {employer.deletedAt && <button
                     data-id={employer.id}
-                    onClick={onClickRestore}
+                    onClick={handleRestore}
                     className="btn btn-light"
                     title="Восстановить">
                     <IconRestore/>
@@ -47,7 +47,7 @@ function Row({employer, onClickDelete, onClickRestore}) {
 
                 {!employer.deletedAt && <button
                     data-id={employer.id}
-                    onClick={onClickDelete}
+                    onClick={handleDelete}
                     className="btn btn-danger ml-sm-2"
                     title="Удалить">
                     <IconDelete/>

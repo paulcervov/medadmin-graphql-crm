@@ -12,9 +12,9 @@ function List({
                   orderByOptions,
                   onInputSearchQuery,
                   searchQuery,
-                  onClickLoadMore,
-                  onClickDelete,
-                  onClickRestore,
+                  handleLoadMore,
+                  handleDelete,
+                  handleRestore,
               }) {
 
     return (<>
@@ -67,12 +67,12 @@ function List({
             {!!findEmployersData?.findEmployers?.data?.length && <>
 
                 <EmployerTable employers={findEmployersData.findEmployers.data}
-                               onClickDelete={onClickDelete}
-                               onClickRestore={onClickRestore}
+                               handleDelete={handleDelete}
+                               handleRestore={handleRestore}
                 />
 
                 <button className="btn btn-primary"
-                        onClick={onClickLoadMore}
+                        onClick={handleLoadMore}
                         disabled={!findEmployersData.findEmployers.hasMorePages}
                 >Загрузить еще
                 </button>
