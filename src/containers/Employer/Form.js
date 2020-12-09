@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {gql, useMutation, useQuery} from "@apollo/client";
 import EmployerForm from '../../components/Employer/Form/Form'
-import {useRouteMatch} from "react-router-dom";
+    import {useParams} from "react-router-dom";
 
 const GET_EMPLOYER = gql`
     query getEmployer($id: ID!) {
@@ -61,7 +61,7 @@ const UPDATE_EMPLOYER = gql`
 
 function Form() {
 
-    const {params: {id}} = useRouteMatch();
+    const {id} = useParams();
 
     const [messages, setMessages] = useState([]);
 

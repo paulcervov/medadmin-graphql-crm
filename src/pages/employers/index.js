@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch, useRouteMatch} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import DashboardLayout from "../../components/Layout/Dashboard";
 import EmployerList from '../../containers/Employer/List';
 import CreatePage from "./create";
@@ -8,21 +8,19 @@ import EditPage from "./edit";
 
 function Index() {
 
-    const {path} = useRouteMatch();
-
     return (
-        <Switch>
-            <Route exact path={`${path}`}>
+        <Routes>
+            <Route path="/">
                 <DashboardLayout>
                     <div className="container">
                         <EmployerList/>
                     </div>
                 </DashboardLayout>
             </Route>
-            <Route exact path={`${path}/create`} component={CreatePage}/>
-            <Route exact path={`${path}/:id(\\d+)`} component={ShowPage}/>
-            <Route exact path={`${path}/:id(\\d+)/edit`} component={EditPage}/>
-        </Switch>
+            <Route path="create" element={<CreatePage/>}/>
+            <Route path=":id" element={<ShowPage/>}/>
+            <Route path=":id/edit" element={<EditPage/>}/>
+        </Routes>
     )
 }
 

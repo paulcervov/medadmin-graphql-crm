@@ -2,11 +2,11 @@ import React from 'react';
 import DashboardLayout from "../../components/Layout/Dashboard";
 import EmployerForm from '../../containers/Employer/Form';
 
-function Edit({match: {params: {id}}}) {
+function Edit() {
     return (
         <DashboardLayout>
             <div className="container">
-                <EmployerForm id={id}/>
+                <EmployerForm/>
             </div>
         </DashboardLayout>
     )

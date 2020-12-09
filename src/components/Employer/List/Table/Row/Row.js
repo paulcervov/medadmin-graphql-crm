@@ -3,17 +3,15 @@ import IconEdit from '../../../../common/Icons/Edit';
 import IconDelete from '../../../../common/Icons/Delete';
 import IconRestore from '../../../../common/Icons/Restore';
 import {ID_ROLE_DOCTOR} from "../../../../../constants/Employer";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Row({employer, handleDelete, handleRestore}) {
-
-    const {path} = useRouteMatch();
 
     return (
         <div className="row p-2">
 
             <div className="col-sm-3">
-                <Link to={`${path}/${employer.id}`}>
+                <Link to={`${employer.id}`}>
                     {employer.lastName} {employer.firstName} {employer.middleName}
                 </Link>
                 <div>{employer.phone}</div>
@@ -40,7 +38,7 @@ function Row({employer, handleDelete, handleRestore}) {
                 {!employer.deletedAt && <Link
                     className="btn btn-primary"
                     title="Редактировать"
-                    to={`${path}/${employer.id}/edit`}
+                    to={`${employer.id}/edit`}
                 >
                     <IconEdit/>
                 </Link>}

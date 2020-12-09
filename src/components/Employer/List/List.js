@@ -1,6 +1,6 @@
 import React from 'react';
 import EmployerTable from "./Table/Table";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function List({
                   messages,
@@ -16,8 +16,6 @@ function List({
                   handleDelete,
                   handleRestore,
               }) {
-
-    const {path} = useRouteMatch();
 
     return (<>
 
@@ -44,7 +42,7 @@ function List({
                 </div>
 
                 <div className="col-sm-auto ml-sm-auto">
-                    <Link className="btn btn-primary" to={`${path}/create`}>Новый сотрудник</Link>
+                    <Link className="btn btn-primary" to="create">Новый сотрудник</Link>
                 </div>
             </div>
 
